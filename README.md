@@ -43,6 +43,3 @@ I think theoretically we can automate enumerating through the saves and taking t
 
 ### Camera paths
 Again, there's an existing mod for this but I think it'd intended for only a single mod (although I should try it out myself). It would be really neat if you could set a camera begin and end position and then as you move through loads it eases the camera between the two positions creating a moving perspective in the timelapses.
-
-### Persistent mod settings
-Right now anytime you change the mod settings once you quit the game then the settings will be reset. This should really be persisted to some config file somewhere.
