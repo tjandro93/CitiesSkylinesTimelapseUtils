@@ -1,7 +1,7 @@
 ﻿using ICities;
 using UnityEngine;
 
-namespace CitiesSkylinesTimelapseUtils
+namespace CitiesSkylinesTimelapseUtils.AutoSave
 {
     public class AutoSaveLoader : LoadingExtensionBase
     {

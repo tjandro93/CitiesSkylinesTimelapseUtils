@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CitiesSkylinesTimelapseUtils
+namespace CitiesSkylinesTimelapseUtils.AutoSave
 {
     public class AutoSaveConfig
     {
@@ -33,12 +33,12 @@ namespace CitiesSkylinesTimelapseUtils
         public AutoSaveConfig()
         {
             debug = new DebugUtil("AutoSaveConfig");
-            AutoSaveIntervalChanged += (object o, AutoSaveIntervalChangeArgs args) =>
+            AutoSaveIntervalChanged += (o, args) =>
             {
                 debug.Log($"AutoSaveIntervalChanged from {args.OldValue} to {args.NewValue}");
             };
 
-            EnabledChanged += (object o, EnabledChangeArgs args) =>
+            EnabledChanged += (o, args) =>
             {
                 debug.Log($"EnabledChanged from {args.OldValue} to {args.NewValue}");
             };

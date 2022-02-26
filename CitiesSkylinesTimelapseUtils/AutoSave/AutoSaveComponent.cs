@@ -3,7 +3,7 @@ using ICities;
 using System.Collections;
 using UnityEngine;
 
-namespace CitiesSkylinesTimelapseUtils
+namespace CitiesSkylinesTimelapseUtils.AutoSave
 {
     public class AutoSaveComponent : MonoBehaviour
     {
@@ -30,7 +30,7 @@ namespace CitiesSkylinesTimelapseUtils
                 saveCoroutine = StartCoroutine(Save());
             }
 
-            AutoSaveConfig.Instance.EnabledChanged += (object o, EnabledChangeArgs args) =>
+            AutoSaveConfig.Instance.EnabledChanged += (o, args) =>
             {
                 debug.Log("EnabledChanged");
                 // start coroutine if we're enabling
@@ -53,7 +53,7 @@ namespace CitiesSkylinesTimelapseUtils
                 }
             };
 
-            AutoSaveConfig.Instance.AutoSaveIntervalChanged += (object o, AutoSaveIntervalChangeArgs args) =>
+            AutoSaveConfig.Instance.AutoSaveIntervalChanged += (o, args) =>
             {
                 debug.Log("AutoSaveInterval changed");
                 // if we're already enabled we need to cancel the existing auto save coroutine
