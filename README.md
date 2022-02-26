@@ -11,6 +11,9 @@ This mod's auto-save feature will create a new save on the set interval (default
 ### Custom auto-save names
 Add mod settings option to let user specify their own string format for the auto save name. Look into making it so they can use real time or city time if they want. Also look into if there's a way to get the city name automatically included.
 
+### Max save count
+It'd be nice to have a configuration option of how many total saves there can be. So if we save more than the limit we would either delete the oldest save or not save at all. This would limit how much disk space is used up by the mod.
+
 ### Savable cameras positions
 There's an existing mod that does this but it would be nice to include it here as a custom implementation. Basically have the ability for the user to save multiple camera positions so that as they move between saves they can go directly to the exact same spot for their screenshot.
 
