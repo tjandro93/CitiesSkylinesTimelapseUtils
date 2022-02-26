@@ -54,7 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoSave.cs" />
+    <Compile Include="AutoSaveComponent.cs" />
+    <Compile Include="AutoSaveLoader.cs" />
     <Compile Include="CitiesSkylinesTimelapseUtilsMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
