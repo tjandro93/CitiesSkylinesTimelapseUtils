@@ -1,4 +1,5 @@
-﻿using ICities;
+﻿using System;
+using ICities;
 using System.Collections;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace CitiesSkylinesTimelapseUtils
 
         public AutoSaveComponent()
         {
-            debug = new DebugUtil("AutoSaveComponent");
+            debug = new DebugUtil("AutoSaveComponent", true);
         }
 
         public void Start()
@@ -94,7 +95,7 @@ namespace CitiesSkylinesTimelapseUtils
 
         private void SaveGame()
         {
-            var saveName = string.Format("AutoSaveComponent {0:yyyy-MM-dd HH-mm}", Threading.renderTime);
+            var saveName = string.Format(AutoSaveConfig.Instance.AutoSaveNameFormat, Threading.renderTime, DateTime.Now);
             debug.Log("saveName " + saveName);
             SerializableData.SaveGame(saveName);
         }

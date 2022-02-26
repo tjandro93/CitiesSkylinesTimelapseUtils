@@ -6,6 +6,8 @@ namespace CitiesSkylinesTimelapseUtils
     {
         public static AutoSaveConfig Instance = new AutoSaveConfig();
 
+        public string AutoSaveNameFormat { get; set; } = "AutoSave {0:yyyy-MM-dd HH-mm}";
+
         private int _autoSaveInterval = DefaultAutoSaveInterval;
         public int AutoSaveInterval
         {

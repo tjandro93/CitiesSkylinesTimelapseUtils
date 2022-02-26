@@ -22,6 +22,7 @@ namespace CitiesSkylinesTimelapseUtils
             var group = helper.AddGroup("Auto Save Settings");
             group.AddCheckbox("Enable auto save", autoSaveConfig.Enabled, (isChecked) => autoSaveConfig.ChangeEnabled(isChecked));
             group.AddTextfield("Auto save interval (in seconds)", autoSaveConfig.AutoSaveInterval.ToString(), (value) => { }, HandleAutoSaveIntervalChange);
+            group.AddTextfield("Auto save format", autoSaveConfig.AutoSaveNameFormat, (value) => autoSaveConfig.AutoSaveNameFormat = value);
         }
 
         public OnTextSubmitted HandleAutoSaveIntervalChange = (string value) =>
