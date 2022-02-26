@@ -6,20 +6,14 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
     public class AutoSaveLoader : LoadingExtensionBase
     {
 
-        private DebugUtil debug;
         private GameObject autoSaveGameObject;
         private AutoSaveComponent autoSaveComponent;
-
-        public AutoSaveLoader()
-        {
-            debug = new DebugUtil("AutoSaveLoader");
-        }
 
         public override void OnLevelLoaded(LoadMode mode)
         {
             if (loadingManager.currentMode == AppMode.Game)
             {
-                debug.Log("OnLevelLoaded()");
+                DebugUtils.Log("AutoSaveLoader: OnLevelLoaded()");
 
                 autoSaveGameObject = new GameObject();
                 autoSaveGameObject.AddComponent<AutoSaveComponent>();
@@ -32,10 +26,10 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
 
         public override void OnLevelUnloading()
         {
-            debug.Log("OnLevelUnloading()");
+            DebugUtils.Log("AutoSaveLoader: OnLevelUnloading()");
             if (autoSaveComponent != null)
             {
-                debug.Log("autoSaveComponent exists; stopping it");
+                DebugUtils.Log("AutoSaveLoader: autoSaveComponent exists; stopping it");
                 autoSaveComponent.Stop();
             }
 

@@ -9,31 +9,27 @@ namespace CitiesSkylinesTimelapseUtils
     {
 
         public const string settingsFileName = "timelapseUtils";
-
-        private readonly DebugUtil debug;
-
         public CitiesSkylinesTimelapseUtilsMod()
         {
-            debug = new DebugUtil("CitiesSkylinesTimelapseUtilsMod", true);
 
             try
             {
-                debug.Log("Finding settings file");
+                DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Finding settings file");
                 // Creating setting file
                 if (GameSettings.FindSettingsFileByName(settingsFileName) == null)
                 {
-                    debug.Log("Didn't finding settings file, creating it");
+                    DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Didn't finding settings file, creating it");
                     GameSettings.AddSettingsFile(new SettingsFile[] { new SettingsFile() { fileName = settingsFileName } });
-                    debug.Log("Settings file created");
+                    DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Settings file created");
                 }
                 else
                 {
-                    debug.Log("Settings file found");
+                    DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Settings file found");
                 }
             }
             catch (Exception)
             {
-                debug.Log("Could load/create the setting file.");
+                DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Could load/create the setting file.");
             }
         }
 
@@ -49,10 +45,13 @@ namespace CitiesSkylinesTimelapseUtils
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            var group = helper.AddGroup("Auto Save Settings");
-            group.AddCheckbox("Enable auto save", AutoSaveConfig.Enabled.value, (isChecked) => AutoSaveConfig.ChangeEnabled(isChecked));
-            group.AddTextfield("Auto save interval (in seconds)", AutoSaveConfig.AutoSaveInterval.value.ToString(), (value) => { }, HandleAutoSaveIntervalChange);
-            group.AddTextfield("Auto save format", AutoSaveConfig.AutoSaveNameFormat.value, (value) => AutoSaveConfig.AutoSaveNameFormat.value = value);
+            var generalGroup = helper.AddGroup("General Settings");
+            generalGroup.AddCheckbox("Hide debug messages", DebugUtils.HideDebugMessages.value, (isChecked) => DebugUtils.HideDebugMessages.value = isChecked);
+
+            var autoSaveGroup = helper.AddGroup("Auto Save Settings");
+            autoSaveGroup.AddCheckbox("Enable auto save", AutoSaveConfig.Enabled.value, (isChecked) => AutoSaveConfig.ChangeEnabled(isChecked));
+            autoSaveGroup.AddTextfield("Auto save interval (in seconds)", AutoSaveConfig.AutoSaveInterval.value.ToString(), (value) => { }, HandleAutoSaveIntervalChange);
+            autoSaveGroup.AddTextfield("Auto save format", AutoSaveConfig.AutoSaveNameFormat.value, (value) => AutoSaveConfig.AutoSaveNameFormat.value = value);
         }
 
         public OnTextSubmitted HandleAutoSaveIntervalChange = (string value) =>

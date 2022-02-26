@@ -7,24 +7,22 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
     {
         public static SavedBool Enabled = new SavedBool("autoSaveEnabled", CitiesSkylinesTimelapseUtilsMod.settingsFileName, true, true);
         public static SavedInt AutoSaveInterval = new SavedInt("autoSaveInterval", CitiesSkylinesTimelapseUtilsMod.settingsFileName, 60, true);
-        public static SavedString AutoSaveNameFormat = new SavedString("autoSaveNameFormat", CitiesSkylinesTimelapseUtilsMod.settingsFileName, "AutoSave {0:yyyy-MM-dd HH-mm}", true);
+        public static SavedString AutoSaveNameFormat = new SavedString("autoSaveNameFormat", CitiesSkylinesTimelapseUtilsMod.settingsFileName, "AutoSave {0:yyyy-MM-dd HH-mm-ss}", true);
 
         public static event EventHandler<AutoSaveIntervalChangeArgs> AutoSaveIntervalChanged;
 
         public static event EventHandler<EnabledChangeArgs> EnabledChanged;
 
-        private static DebugUtil debug = new DebugUtil("AutoSaveConfig");
-
         static AutoSaveConfig()
         {
             AutoSaveIntervalChanged += (o, args) =>
             {
-                debug.Log($"AutoSaveIntervalChanged from {args.OldValue} to {args.NewValue}");
+                DebugUtils.Log($"AutoSaveConfig: AutoSaveIntervalChanged from {args.OldValue} to {args.NewValue}");
             };
 
             EnabledChanged += (o, args) =>
                     {
-                        debug.Log($"EnabledChanged from {args.OldValue} to {args.NewValue}");
+                        DebugUtils.Log($"AutoSaveConfig: EnabledChanged from {args.OldValue} to {args.NewValue}");
                     };
         }
 
@@ -34,14 +32,14 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
             {
                 var oldValue = AutoSaveInterval;
                 AutoSaveInterval.value = newValue;
-                debug.Log("Calling RaiseAutoSaveIntervalChanged");
+                DebugUtils.Log("AutoSaveConfig: Calling RaiseAutoSaveIntervalChanged");
                 RaiseAutoSaveIntervalChanged(new AutoSaveIntervalChangeArgs(oldValue, newValue));
             }
         }
 
         private static void RaiseAutoSaveIntervalChanged(AutoSaveIntervalChangeArgs args)
         {
-            debug.Log("Raising AutoSaveIntervalChanged");
+            DebugUtils.Log("AutoSaveConfig: Raising AutoSaveIntervalChanged");
             EventHandler<AutoSaveIntervalChangeArgs> raiseEvent = AutoSaveIntervalChanged;
 
             if (raiseEvent != null)
@@ -52,19 +50,19 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
 
         public static void ChangeEnabled(bool newValue)
         {
-            debug.Log($"newValue: {newValue}, Enabled: {Enabled}");
+            DebugUtils.Log($"AutoSaveConfig: newValue: {newValue}, Enabled: {Enabled}");
             if (newValue != Enabled)
             {
                 var oldValue = Enabled;
                 Enabled.value = newValue;
-                debug.Log("Calling RaiseEnabledChanged");
+                DebugUtils.Log("AutoSaveConfig: Calling RaiseEnabledChanged");
                 RaiseEnabledChanged(new EnabledChangeArgs(oldValue, newValue));
             }
         }
 
         private static void RaiseEnabledChanged(EnabledChangeArgs args)
         {
-            debug.Log("Raising EnabledChanged");
+            DebugUtils.Log("AutoSaveConfig: Raising EnabledChanged");
             EventHandler<EnabledChangeArgs> raiseEvent = EnabledChanged;
 
             if (raiseEvent != null)

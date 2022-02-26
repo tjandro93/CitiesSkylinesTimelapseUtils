@@ -1,24 +1,17 @@
-﻿namespace CitiesSkylinesTimelapseUtils
+﻿using ColossalFramework;
+
+namespace CitiesSkylinesTimelapseUtils
 {
-    public class DebugUtil
+    public static class DebugUtils
     {
 
-        private readonly string className;
-        private readonly bool showMessages;
-        private const bool defaultShowMessages = false;
+        public static SavedBool HideDebugMessages = new SavedBool("hideDebugMessages", CitiesSkylinesTimelapseUtilsMod.settingsFileName, true, true);
 
-        public DebugUtil(string className, bool showMessages = defaultShowMessages)
+        public static void Log(string message)
         {
-            this.className = className;
-            this.showMessages = showMessages;
-        }
+            if (HideDebugMessages.value) return;
 
-        public void Log(string message)
-        {
-            if (showMessages)
-            {
-                DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, $"{className}: {message}");
-            }
+            DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, message);
         }
     }
 }

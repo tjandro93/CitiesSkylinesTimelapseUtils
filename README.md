@@ -16,10 +16,10 @@ This mod's auto-save feature will create a new save on the set interval (default
 	* 60 seconds by default
 * Auto save format
 	* A C# format string that determines the save name. 
-	* There are two parameters passed in to the format. {0} is `Threading.renderTime` which is essentially the in game data and time. {1} is `DateTime.Now`; the current date and time of the user's computer.
+	* There are two parameters passed in to the format. {0} is `DateTime.Now`; the current date and time of the user's computer. {1} is `Threading.renderTime` which is the in-game data and time.
 	* You can use any standard or custom date-time format string provided in C#. See  [Standard date and time format strings](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings) and [Custom date and time format strings](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings) for available options.
-	* Note that if the save name is one that already exists, the old save will be overwritten. This means that if you use the default value while the game is paused saves will be overwritten by the current game state every time until you resume. Furthermore, if you say only include the year day and month in your save name format you will only end up with at most one unique game save per day.
-	* AutoSave {0:yyyy-MM-dd HH-mm} by default
+	* Note that if the save name is one that already exists, the old save will be overwritten. When you use real time in your filename you don't have to consider this. If you use the renderTime you can use this to limit your number of saves based on how much time has passed in-game. For example, by using the format "AutoSave {1:yyyy-MM-dd}" you will get at most one save per in-game day. 
+	* AutoSave {1:yyyy-MM-dd HH-mm-ss} by default
 
 ## Future ideas
 ### Custom auto-save names
