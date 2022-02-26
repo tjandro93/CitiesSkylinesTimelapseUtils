@@ -31,24 +31,30 @@ namespace CitiesSkylinesTimelapseUtils
 
             AutoSaveConfig.Instance.EnabledChanged += (object o, EnabledChangeArgs args) =>
             {
+                debug.Log("EnabledChanged");
                 // start coroutine if we're enabling
                 if (args.NewValue)
                 {
+                    debug.Log("EnabledChanged, new Value");
                     if (saveCoroutine != null)
                     {
+                        debug.Log("EnabledChanged, stopping old coroutine");
                         Stop();
                     }
+                    debug.Log("EnabledChanged, starting coroutine");
                     saveCoroutine = StartCoroutine(Save());
                 }
                 // we're disabling, so cancel coroutine only if there is one running
                 else if (saveCoroutine != null)
                 {
+                    debug.Log("EnabledChangedto disabled. stopping coroutine");
                     Stop();
                 }
             };
 
             AutoSaveConfig.Instance.AutoSaveIntervalChanged += (object o, AutoSaveIntervalChangeArgs args) =>
             {
+                debug.Log("AutoSaveInterval changed");
                 // if we're already enabled we need to cancel the existing auto save coroutine
                 // and start a new one with the new value
                 if (saveCoroutine != null)
