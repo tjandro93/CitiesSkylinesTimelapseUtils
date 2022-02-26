@@ -7,19 +7,29 @@ namespace CitiesSkylinesTimelapseUtils
     {
 
         private GameObject autoSaveGameObject;
+        private AutoSaveComponent autoSaveComponent;
 
         public override void OnLevelLoaded(LoadMode mode)
         {
-            DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, "AutoSave.OnLevelLoaded()");
+            if (mode == LoadMode.LoadGame)
+            {
+                DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, "AutoSave.OnLevelLoaded()");
 
-            autoSaveGameObject = new GameObject();
-
-            autoSaveGameObject.AddComponent<AutoSaveComponent>();
+                autoSaveGameObject = new GameObject();
+                autoSaveGameObject.AddComponent<AutoSaveComponent>();
+                autoSaveComponent = autoSaveGameObject.GetComponent<AutoSaveComponent>();
+                autoSaveComponent.SerializableData = managers.serializableData;
+                autoSaveComponent.Threading = managers.threading;
+            }
         }
 
-        public override void OnReleased()
+
+        public override void OnLevelUnloading()
         {
-            autoSaveGameObject.GetComponent<AutoSaveComponent>().Stop();
+            if (autoSaveComponent != null)
+            {
+                autoSaveComponent.Stop();
+            }
         }
     }
 }
