@@ -6,14 +6,20 @@ namespace CitiesSkylinesTimelapseUtils
     public class AutoSaveLoader : LoadingExtensionBase
     {
 
+        private DebugUtil debug;
         private GameObject autoSaveGameObject;
         private AutoSaveComponent autoSaveComponent;
+
+        public AutoSaveLoader()
+        {
+            debug = new DebugUtil("AutoSaveLoader");
+        }
 
         public override void OnLevelLoaded(LoadMode mode)
         {
             if (mode == LoadMode.LoadGame)
             {
-                DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, "AutoSave.OnLevelLoaded()");
+                debug.Log("OnLevelLoaded()");
 
                 autoSaveGameObject = new GameObject();
                 autoSaveGameObject.AddComponent<AutoSaveComponent>();
@@ -26,10 +32,14 @@ namespace CitiesSkylinesTimelapseUtils
 
         public override void OnLevelUnloading()
         {
+            debug.Log("OnLevelUnloading()");
             if (autoSaveComponent != null)
             {
+                debug.Log("autoSaveComponent exists; stopping it");
                 autoSaveComponent.Stop();
             }
+
+            AutoSaveConfig.Instance.ResetSubscriptions();
         }
     }
 }

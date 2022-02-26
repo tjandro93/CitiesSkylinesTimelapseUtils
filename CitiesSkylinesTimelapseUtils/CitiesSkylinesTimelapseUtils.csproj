@@ -55,8 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoSaveComponent.cs" />
+    <Compile Include="AutoSaveConfig.cs" />
     <Compile Include="AutoSaveLoader.cs" />
     <Compile Include="CitiesSkylinesTimelapseUtilsMod.cs" />
+    <Compile Include="DebugUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
