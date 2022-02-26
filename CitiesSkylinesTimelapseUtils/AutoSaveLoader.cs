@@ -17,7 +17,7 @@ namespace CitiesSkylinesTimelapseUtils
 
         public override void OnLevelLoaded(LoadMode mode)
         {
-            if (mode == LoadMode.LoadGame)
+            if (loadingManager.currentMode == AppMode.Game)
             {
                 debug.Log("OnLevelLoaded()");
 
