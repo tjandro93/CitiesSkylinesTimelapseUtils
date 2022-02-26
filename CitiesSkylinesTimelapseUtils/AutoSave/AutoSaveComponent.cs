@@ -1,5 +1,5 @@
-﻿using System;
-using ICities;
+﻿using ICities;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,7 +14,6 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
         private Coroutine saveCoroutine;
         private DebugUtil debug;
 
-
         public AutoSaveComponent()
         {
             debug = new DebugUtil("AutoSaveComponent", true);
@@ -24,13 +23,13 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
         {
             debug.Log("Start()");
 
-            if (AutoSaveConfig.Instance.Enabled)
+            if (AutoSaveConfig.Enabled.value)
             {
                 debug.Log("AutoSave already enabled, starting coroutine immediately");
                 saveCoroutine = StartCoroutine(Save());
             }
 
-            AutoSaveConfig.Instance.EnabledChanged += (o, args) =>
+            AutoSaveConfig.EnabledChanged += (o, args) =>
             {
                 debug.Log("EnabledChanged");
                 // start coroutine if we're enabling
@@ -53,7 +52,7 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
                 }
             };
 
-            AutoSaveConfig.Instance.AutoSaveIntervalChanged += (o, args) =>
+            AutoSaveConfig.AutoSaveIntervalChanged += (o, args) =>
             {
                 debug.Log("AutoSaveInterval changed");
                 // if we're already enabled we need to cancel the existing auto save coroutine
@@ -73,11 +72,11 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
             debug.Log("Save()");
 
             // as long as auto save is enabled, loop
-            while (AutoSaveConfig.Instance.Enabled)
+            while (AutoSaveConfig.Enabled.value)
             {
                 debug.Log("AutoSave Enabled, waiting");
                 // delay for the specified auto save interval seconds
-                yield return new WaitForSeconds(AutoSaveConfig.Instance.AutoSaveInterval);
+                yield return new WaitForSeconds(AutoSaveConfig.AutoSaveInterval.value);
                 debug.Log("Finished waiting");
                 SaveGame();
             }
@@ -95,7 +94,7 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
 
         private void SaveGame()
         {
-            var saveName = string.Format(AutoSaveConfig.Instance.AutoSaveNameFormat, Threading.renderTime, DateTime.Now);
+            var saveName = string.Format(AutoSaveConfig.AutoSaveNameFormat.value, Threading.renderTime, DateTime.Now);
             debug.Log("saveName " + saveName);
             SerializableData.SaveGame(saveName);
         }

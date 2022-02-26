@@ -1,95 +1,79 @@
-﻿using System;
+﻿using ColossalFramework;
+using System;
 
 namespace CitiesSkylinesTimelapseUtils.AutoSave
 {
-    public class AutoSaveConfig
+    public static class AutoSaveConfig
     {
-        public static AutoSaveConfig Instance = new AutoSaveConfig();
+        public static SavedBool Enabled = new SavedBool("autoSaveEnabled", CitiesSkylinesTimelapseUtilsMod.settingsFileName, true, true);
+        public static SavedInt AutoSaveInterval = new SavedInt("autoSaveInterval", CitiesSkylinesTimelapseUtilsMod.settingsFileName, 60, true);
+        public static SavedString AutoSaveNameFormat = new SavedString("autoSaveNameFormat", CitiesSkylinesTimelapseUtilsMod.settingsFileName, "AutoSave {0:yyyy-MM-dd HH-mm}", true);
 
-        public string AutoSaveNameFormat { get; set; } = "AutoSave {0:yyyy-MM-dd HH-mm}";
+        public static event EventHandler<AutoSaveIntervalChangeArgs> AutoSaveIntervalChanged;
 
-        private int _autoSaveInterval = DefaultAutoSaveInterval;
-        public int AutoSaveInterval
+        public static event EventHandler<EnabledChangeArgs> EnabledChanged;
+
+        private static DebugUtil debug = new DebugUtil("AutoSaveConfig");
+
+        static AutoSaveConfig()
         {
-            get => _autoSaveInterval;
-            private set => _autoSaveInterval = value;
-        }
-
-        public const int DefaultAutoSaveInterval = 60;
-
-        private bool _enabled = true;
-        public bool Enabled
-        {
-            get => _enabled;
-            private set => _enabled = value;
-        }
-
-        public event EventHandler<AutoSaveIntervalChangeArgs> AutoSaveIntervalChanged;
-
-        public event EventHandler<EnabledChangeArgs> EnabledChanged;
-
-        private DebugUtil debug;
-
-        public AutoSaveConfig()
-        {
-            debug = new DebugUtil("AutoSaveConfig");
             AutoSaveIntervalChanged += (o, args) =>
             {
                 debug.Log($"AutoSaveIntervalChanged from {args.OldValue} to {args.NewValue}");
             };
 
             EnabledChanged += (o, args) =>
-            {
-                debug.Log($"EnabledChanged from {args.OldValue} to {args.NewValue}");
-            };
+                    {
+                        debug.Log($"EnabledChanged from {args.OldValue} to {args.NewValue}");
+                    };
         }
 
-        public void ChangeAutoSaveInterval(int newValue)
+        public static void ChangeAutoSaveInterval(int newValue)
         {
             if (newValue > 0 && newValue != AutoSaveInterval)
             {
                 var oldValue = AutoSaveInterval;
-                AutoSaveInterval = newValue;
+                AutoSaveInterval.value = newValue;
                 debug.Log("Calling RaiseAutoSaveIntervalChanged");
                 RaiseAutoSaveIntervalChanged(new AutoSaveIntervalChangeArgs(oldValue, newValue));
             }
         }
 
-        private void RaiseAutoSaveIntervalChanged(AutoSaveIntervalChangeArgs args)
+        private static void RaiseAutoSaveIntervalChanged(AutoSaveIntervalChangeArgs args)
         {
             debug.Log("Raising AutoSaveIntervalChanged");
             EventHandler<AutoSaveIntervalChangeArgs> raiseEvent = AutoSaveIntervalChanged;
 
             if (raiseEvent != null)
             {
-                raiseEvent(this, args);
+                raiseEvent(null, args);
             }
         }
 
-        public void ChangeEnabled(bool newValue)
+        public static void ChangeEnabled(bool newValue)
         {
             debug.Log($"newValue: {newValue}, Enabled: {Enabled}");
             if (newValue != Enabled)
             {
                 var oldValue = Enabled;
-                Enabled = newValue;
+                Enabled.value = newValue;
                 debug.Log("Calling RaiseEnabledChanged");
                 RaiseEnabledChanged(new EnabledChangeArgs(oldValue, newValue));
             }
         }
 
-        private void RaiseEnabledChanged(EnabledChangeArgs args)
+        private static void RaiseEnabledChanged(EnabledChangeArgs args)
         {
             debug.Log("Raising EnabledChanged");
             EventHandler<EnabledChangeArgs> raiseEvent = EnabledChanged;
 
             if (raiseEvent != null)
             {
-                raiseEvent(this, args);
+                raiseEvent(null, args);
             }
         }
 
-        public void ResetSubscriptions()
+        public static void ResetSubscriptions()
         {
             AutoSaveIntervalChanged = null;
             EnabledChanged = null;

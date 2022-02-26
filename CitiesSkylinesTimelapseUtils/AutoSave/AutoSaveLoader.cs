@@ -39,7 +39,7 @@ namespace CitiesSkylinesTimelapseUtils.AutoSave
                 autoSaveComponent.Stop();
             }
 
-            AutoSaveConfig.Instance.ResetSubscriptions();
+            AutoSaveConfig.ResetSubscriptions();
         }
     }
 }
