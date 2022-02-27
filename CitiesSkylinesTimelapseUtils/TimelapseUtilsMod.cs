@@ -1,41 +1,41 @@
-﻿using CitiesSkylinesTimelapseUtils.AutoSave;
+﻿using TimelapseUtils.AutoSave;
 using ColossalFramework;
 using ICities;
 using System;
 
-namespace CitiesSkylinesTimelapseUtils
+namespace TimelapseUtils
 {
-    public class CitiesSkylinesTimelapseUtilsMod : IUserMod
+    public class TimelapseUtilsMod : IUserMod
     {
 
         public const string settingsFileName = "timelapseUtils";
-        public CitiesSkylinesTimelapseUtilsMod()
+        public TimelapseUtilsMod()
         {
 
             try
             {
-                DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Finding settings file");
+                DebugUtils.Log("TimelapseUtilsMod: Finding settings file");
                 // Creating setting file
                 if (GameSettings.FindSettingsFileByName(settingsFileName) == null)
                 {
-                    DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Didn't finding settings file, creating it");
+                    DebugUtils.Log("TimelapseUtilsMod: Didn't finding settings file, creating it");
                     GameSettings.AddSettingsFile(new SettingsFile[] { new SettingsFile() { fileName = settingsFileName } });
-                    DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Settings file created");
+                    DebugUtils.Log("TimelapseUtilsMod: Settings file created");
                 }
                 else
                 {
-                    DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Settings file found");
+                    DebugUtils.Log("TimelapseUtilsMod: Settings file found");
                 }
             }
             catch (Exception)
             {
-                DebugUtils.Log("CitiesSkylinesTimelapseUtilsMod: Could load/create the setting file.");
+                DebugUtils.Log("TimelapseUtilsMod: Could load/create the setting file.");
             }
         }
 
         public string Name
         {
-            get { return "CitiesSkylinesTimelapseUtils"; }
+            get { return "Timelapse Utils"; }
         }
 
         public string Description

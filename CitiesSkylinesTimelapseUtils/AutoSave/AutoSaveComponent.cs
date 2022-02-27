@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace CitiesSkylinesTimelapseUtils.AutoSave
+namespace TimelapseUtils.AutoSave
 {
     public class AutoSaveComponent : MonoBehaviour
     {

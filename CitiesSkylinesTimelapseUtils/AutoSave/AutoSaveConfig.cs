@@ -1,13 +1,13 @@
 ﻿using ColossalFramework;
 using System;
 
-namespace CitiesSkylinesTimelapseUtils.AutoSave
+namespace TimelapseUtils.AutoSave
 {
     public static class AutoSaveConfig
     {
-        public static SavedBool Enabled = new SavedBool("autoSaveEnabled", CitiesSkylinesTimelapseUtilsMod.settingsFileName, true, true);
-        public static SavedInt AutoSaveInterval = new SavedInt("autoSaveInterval", CitiesSkylinesTimelapseUtilsMod.settingsFileName, 60, true);
-        public static SavedString AutoSaveNameFormat = new SavedString("autoSaveNameFormat", CitiesSkylinesTimelapseUtilsMod.settingsFileName, "AutoSave {0:yyyy-MM-dd HH-mm-ss}", true);
+        public static SavedBool Enabled = new SavedBool("autoSaveEnabled", TimelapseUtilsMod.settingsFileName, true, true);
+        public static SavedInt AutoSaveInterval = new SavedInt("autoSaveInterval", TimelapseUtilsMod.settingsFileName, 60, true);
+        public static SavedString AutoSaveNameFormat = new SavedString("autoSaveNameFormat", TimelapseUtilsMod.settingsFileName, "AutoSave {0:yyyy-MM-dd HH-mm-ss}", true);
 
         public static event EventHandler<AutoSaveIntervalChangeArgs> AutoSaveIntervalChanged;
 

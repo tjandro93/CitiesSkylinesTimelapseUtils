@@ -1,11 +1,11 @@
 ﻿using ColossalFramework;
 
-namespace CitiesSkylinesTimelapseUtils
+namespace TimelapseUtils
 {
     public static class DebugUtils
     {
 
-        public static SavedBool HideDebugMessages = new SavedBool("hideDebugMessages", CitiesSkylinesTimelapseUtilsMod.settingsFileName, true, true);
+        public static SavedBool HideDebugMessages = new SavedBool("hideDebugMessages", TimelapseUtilsMod.settingsFileName, true, true);
 
         public static void Log(string message)
         {
