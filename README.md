@@ -43,3 +43,12 @@ I think theoretically we can automate enumerating through the saves and taking t
 
 ### Camera paths
 Again, there's an existing mod for this but I think it'd intended for only a single mod (although I should try it out myself). It would be really neat if you could set a camera begin and end position and then as you move through loads it eases the camera between the two positions creating a moving perspective in the timelapses.
+
+### Live screenshot mode
+A mode of the mod where screenshots are taken as you play. You should be able to set a saved camera position and then on an interval it will:
+
+1. Set camera to saved position
+2. Take screenshot
+3. Revert cameras to previous position
+
+Since this will interupt game flow it would be nice to have a countdown displayed for the user before the above routine is invoked.
